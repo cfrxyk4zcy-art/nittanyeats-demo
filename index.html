@@ -1,59 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>NittanyEats – Mock Demo</title>
-  <style>
-    body { font-family: Arial; padding: 20px; }
-    .item { padding: 10px; border-bottom: 1px solid #ccc; }
-  </style>
+<meta charset="UTF-8">
+<title>NittanyEats – Mock PSU Menus</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+        margin-top: 0;
+        color: #003366;
+    }
+    .row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    select, input[type="date"], button {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+    button {
+        background: #0077cc;
+        color: white;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    button:hover {
+        background: #005fa3;
+    }
+    .menu-card {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        border-left: 5px solid #0077cc;
+    }
+    .menu-card h3 {
+        margin: 0 0 6px 0;
+    }
+</style>
 </head>
 <body>
 
-<h1>NittanyEats – Mock Menu Demo</h1>
-<p>This version uses a static JSON file so it works anywhere, including GitHub Pages.</p>
+<div class="container">
+    <h1>NittanyEats – Mock PSU Menus</h1>
+    <p>Select dining hall, meal, and date to load menu items.</p>
 
-<select id="hallSelect"></select>
-<button onclick="loadMenu()">Load Menu</button>
+    <div class="row">
+        <select id="hall"></select>
+        <select id="meal">
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+        </select>
+        <input type="date" id="date">
+    </div>
 
-<h2>Menu Results</h2>
-<div id="menuOutput"></div>
+    <button onclick="loadMenu()">View Menu</button>
+
+    <h2 style="margin-top:30px;">Menu Results</h2>
+    <div id="results"></div>
+</div>
 
 <script>
-async function loadMenu() {
-  const hall = document.getElementById("hallSelect").value;
-  const res = await fetch("menus.json");
-  const data = await res.json();
+async function init() {
+    const res = await fetch("menus.json");
+    window.menuData = await res.json();
 
-  const menu = data.menus[hall]["Lunch"];
-  const output = document.getElementById("menuOutput");
+    const hallSelect = document.getElementById("hall");
+    menuData.halls.forEach(h => {
+        const opt = document.createElement("option");
+        opt.value = h.id;
+        opt.textContent = h.name;
+        hallSelect.appendChild(opt);
+    });
 
-  output.innerHTML = "";
-  menu.forEach(item => {
-    output.innerHTML += `<div class="item">
-      <strong>${item.name}</strong><br>
-      Calories: ${item.calories}<br>
-      CO₂e: ${item.co2e}<br>
-      Score: ${item.score}
-    </div>`;
-  });
+    document.getElementById("date").value = new Date().toISOString().split("T")[0];
 }
+init();
 
-async function loadHalls() {
-  const res = await fetch("menus.json");
-  const data = await res.json();
+function loadMenu() {
+    const hall = document.getElementById("hall").value;
+    const meal = document.getElementById("meal").value;
 
-  const select = document.getElementById("hallSelect");
-  for (const h of data.halls) {
-    const opt = document.createElement("option");
-    opt.value = h.id;
-    opt.innerText = h.name;
-    select.appendChild(opt);
-  }
+    const container = document.getElementById("results");
+    container.innerHTML = "";
+
+    const items = menuData.menus[hall]?.[meal] || [];
+
+    if (items.length === 0) {
+        container.innerHTML = "<p>No menu available.</p>";
+        return;
+    }
+
+    items.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "menu-card";
+        card.innerHTML = `
+            <h3>${item.name}</h3>
+            <p><strong>Calories:</strong> ${item.calories}</p>
+            <p><strong>CO₂e:</strong> ${item.co2e} kg</p>
+            <p><strong>Sustainability Score:</strong> ${item.score}/10</p>
+        `;
+        container.appendChild(card);
+    });
 }
-
-loadHalls();
 </script>
 
 </body>
 </html>
-
