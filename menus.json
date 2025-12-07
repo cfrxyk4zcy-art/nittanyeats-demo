@@ -1,54 +1,130 @@
 {
   "menus": {
     "2025-12-07": {
-      "14": {
+      "11": {
         "Breakfast": [
-          { "name": "Pancakes", "calories": 350 },
-          { "name": "Scrambled Eggs", "calories": 200 }
+          {"name": "Pancakes", "calories": 350, "protein": 6},
+          {"name": "Scrambled Eggs", "calories": 220, "protein": 12},
+          {"name": "Fruit Bowl", "calories": 120, "protein": 2}
         ],
         "Lunch": [
-          { "name": "Chicken Alfredo", "calories": 720 },
-          { "name": "Caesar Salad", "calories": 320 }
+          {"name": "Grilled Chicken Sandwich", "calories": 480, "protein": 28},
+          {"name": "Veggie Wrap", "calories": 330, "protein": 10},
+          {"name": "Garden Salad", "calories": 190, "protein": 4}
         ],
         "Dinner": [
-          { "name": "Beef Stir Fry", "calories": 680 },
-          { "name": "Vegetable Noodles", "calories": 400 }
+          {"name": "Beef Stir Fry", "calories": 620, "protein": 32},
+          {"name": "Tofu Rice Bowl", "calories": 410, "protein": 18},
+          {"name": "Garlic Bread", "calories": 200, "protein": 3}
+        ]
+      },
+      "13": {
+        "Breakfast": [
+          {"name": "Bagel & Cream Cheese", "calories": 300, "protein": 8},
+          {"name": "Blueberry Muffin", "calories": 250, "protein": 3}
+        ],
+        "Lunch": [
+          {"name": "Cheese Pizza", "calories": 290, "protein": 14},
+          {"name": "Pepperoni Pizza", "calories": 330, "protein": 16}
+        ],
+        "Dinner": [
+          {"name": "Pasta Marinara", "calories": 520, "protein": 20},
+          {"name": "Caesar Salad", "calories": 260, "protein": 8}
+        ]
+      },
+      "14": {
+        "Breakfast": [
+          {"name": "Waffles", "calories": 370, "protein": 7},
+          {"name": "Turkey Bacon", "calories": 90, "protein": 6}
+        ],
+        "Lunch": [
+          {"name": "Burrito Bowl", "calories": 540, "protein": 24},
+          {"name": "Veggie Rice Bowl", "calories": 430, "protein": 14}
+        ],
+        "Dinner": [
+          {"name": "Chicken Alfredo", "calories": 680, "protein": 36},
+          {"name": "Steamed Vegetables", "calories": 140, "protein": 5}
+        ]
+      },
+      "16": {
+        "Breakfast": [
+          {"name": "Oatmeal", "calories": 180, "protein": 5},
+          {"name": "Yogurt Parfait", "calories": 240, "protein": 9}
+        ],
+        "Lunch": [
+          {"name": "Burger & Fries", "calories": 740, "protein": 34},
+          {"name": "Black Bean Burger", "calories": 510, "protein": 22}
+        ],
+        "Dinner": [
+          {"name": "BBQ Chicken", "calories": 590, "protein": 40},
+          {"name": "Mashed Potatoes", "calories": 230, "protein": 4}
+        ]
+      },
+      "17": {
+        "Breakfast": [
+          {"name": "French Toast", "calories": 340, "protein": 8}
+        ],
+        "Lunch": [
+          {"name": "Sushi Rolls", "calories": 320, "protein": 12},
+          {"name": "Tempura Shrimp", "calories": 450, "protein": 20}
+        ],
+        "Dinner": [
+          {"name": "Teriyaki Chicken", "calories": 610, "protein": 34},
+          {"name": "Fried Rice", "calories": 520, "protein": 10}
         ]
       }
     },
 
     "2025-12-08": {
-      "14": {
+      "11": {
         "Breakfast": [
-          { "name": "Bagel & Cream Cheese", "calories": 310 },
-          { "name": "Fruit Bowl", "calories": 180 }
+          {"name": "Chocolate Chip Pancakes", "calories": 420, "protein": 7}
         ],
         "Lunch": [
-          { "name": "Turkey Sandwich", "calories": 540 },
-          { "name": "Tomato Soup", "calories": 210 }
+          {"name": "Chicken Caesar Wrap", "calories": 520, "protein": 30}
         ],
         "Dinner": [
-          { "name": "Baked Salmon", "calories": 590 },
-          { "name": "Garlic Rice", "calories": 300 }
+          {"name": "Steak & Potatoes", "calories": 700, "protein": 40}
+        ]
+      },
+      "14": {
+        "Breakfast": [
+          {"name": "Egg & Cheese Sandwich", "calories": 310, "protein": 16}
+        ],
+        "Lunch": [
+          {"name": "Orange Chicken", "calories": 640, "protein": 28}
+        ],
+        "Dinner": [
+          {"name": "Baked Ziti", "calories": 580, "protein": 22}
         ]
       }
     },
 
     "2025-12-09": {
-      "14": {
+      "11": {
         "Breakfast": [
-          { "name": "French Toast", "calories": 400 },
-          { "name": "Yogurt Parfait", "calories": 250 }
+          {"name": "Avocado Toast", "calories": 260, "protein": 6}
         ],
         "Lunch": [
-          { "name": "BBQ Chicken", "calories": 690 },
-          { "name": "Quinoa Bowl", "calories": 420 }
+          {"name": "Chicken Quesadilla", "calories": 530, "protein": 24}
         ],
         "Dinner": [
-          { "name": "Pasta Primavera", "calories": 530 },
-          { "name": "Spinach Pizza", "calories": 450 }
+          {"name": "Salmon Plate", "calories": 640, "protein": 38}
+        ]
+      },
+      "17": {
+        "Breakfast": [
+          {"name": "Fruit & Yogurt Bowl", "calories": 210, "protein": 8}
+        ],
+        "Lunch": [
+          {"name": "Korean Beef Bowl", "calories": 580, "protein": 30}
+        ],
+        "Dinner": [
+          {"name": "Spicy Ramen", "calories": 720, "protein": 20}
         ]
       }
     }
   }
 }
+
+ 
