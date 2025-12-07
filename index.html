@@ -1,11 +1,20 @@
-fetch(`menus.json`)
-  .then(res => res.json())
-  .then(data => {
-    const date = document.getElementById("date").value;
-    const hall = document.getElementById("hall").value;
-    const meal = document.getElementById("meal").value;
+function loadMenu() {
+  fetch("menus.json")
+    .then(res => res.json())
+    .then(data => {
+      const date = document.getElementById("date").value;  // "2025-12-07"
+      const hall = document.getElementById("hall").value;  // "14"
+      const meal = document.getElementById("meal").value;  // "Lunch"
 
-    const menu = data.menus[date]?.[hall]?.[meal] || [];
-    renderMenu(menu);
-  });
+      console.log("Selected:", date, hall, meal);
+      console.log("Available dates:", Object.keys(data.menus));
 
+      const menu =
+        data.menus?.[date]?.[hall]?.[meal] || [];
+
+      renderMenu(menu);
+    })
+    .catch(err => {
+      console.error("Error loading menus.json:", err);
+    });
+}
