@@ -1,20 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NittanyEats Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f5f8ff;
+    }
+    h1 {
+      text-align: center;
+      color: #0033a0;
+    }
+    .controls {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    select, input {
+      padding: 8px;
+      font-size: 16px;
+    }
+    table {
+      width: 90%;
+      margin: auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #0033a0;
+      color: white;
+    }
+    .no-menu {
+      text-align: center;
+      color: gray;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>NittanyEats – QR Demo</h1>
+
+  <div class="controls">
+    <!-- DATE PICKER -->
+    <input type="date" id="date" value="2025-12-07"/>
+
+    <!-- HALL SELECT -->
+    <select id="hall">
+      <option value="14">Pollock</option>
+      <option value="13">North</option>
+      <option value="11">South</option>
+      <option value="16">West</option>
+      <option value="17">East</option>
+    </select>
+
+    <!-- MEAL SELECT -->
+    <select id="meal">
+      <option>Breakfast</option>
+      <option>Lunch</option>
+      <option>Dinner</option>
+    </select>
+
+    <button onclick="loadMenu()">Load Menu</button>
+  </div>
+
+  <table id="menuTable">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Calories</th>
+        <th>Protein</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody id="menuBody"></tbody>
+  </table>
+
+  <p id="emptyMessage" class="no-menu"></p>
+
+<script>
+function renderMenu(menu) {
+  const tbody = document.getElementById("menuBody");
+  const msg = document.getElementById("emptyMessage");
+  tbody.innerHTML = "";
+  msg.innerHTML = "";
+
+  if (menu.length === 0) {
+    msg.innerHTML = "No menu available for this date/meal.";
+    return;
+  }
+
+  menu.forEach(item => {
+    const row = `
+      <tr>
+        <td>${item.name}</td>
+        <td>${item.calories}</td>
+        <td>${item.protein}</td>
+        <td>${item.category}</td>
+      </tr>`;
+    tbody.innerHTML += row;
+  });
+}
+
 function loadMenu() {
   fetch("menus.json")
     .then(res => res.json())
     .then(data => {
-      const date = document.getElementById("date").value;  // "2025-12-07"
-      const hall = document.getElementById("hall").value;  // "14"
-      const meal = document.getElementById("meal").value;  // "Lunch"
+      const date = document.getElementById("date").value;
+      const hall = document.getElementById("hall").value;
+      const meal = document.getElementById("meal").value;
 
-      console.log("Selected:", date, hall, meal);
-      console.log("Available dates:", Object.keys(data.menus));
+      console.log("Fetching:", date, hall, meal);
 
-      const menu =
-        data.menus?.[date]?.[hall]?.[meal] || [];
-
+      const menu = data.menus?.[date]?.[hall]?.[meal] || [];
       renderMenu(menu);
     })
     .catch(err => {
       console.error("Error loading menus.json:", err);
     });
 }
+</script>
+
+</body>
+</html>
+
