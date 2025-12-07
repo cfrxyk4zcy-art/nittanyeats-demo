@@ -1,109 +1,485 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>NittanyEats  Menu</title>
+  <meta charset="UTF-8" />
+  <title>NittanyEats – Mock PSU Menus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    :root {
+      --bg: #0b1220;
+      --card: #111827;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.15);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-subtle: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        sans-serif;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      padding: 20px;
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
     }
-    h1 { text-align: center; }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    select, input {
-      padding: 10px;
-      margin: 8px 0;
+
+    .app {
       width: 100%;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+      max-width: 1100px;
+      background: linear-gradient(145deg, #020617, #020617);
+      border-radius: 24px;
+      padding: 24px 24px 20px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow:
+        0 40px 100px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(15, 23, 42, 0.8);
     }
-    button {
-      width: 100%;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .title-block h1 {
+      font-size: 1.6rem;
+      margin: 0;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(34, 197, 94, 0.7);
+    }
+
+    .title-block p {
+      margin: 6px 0 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 0.8rem;
+    }
+
+    .badge {
+      border-radius: 999px;
+      padding: 3px 9px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
       padding: 12px;
-      background: #0077ff;
-      color: white;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      margin-bottom: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    select,
+    input[type="date"] {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: #020617;
+      color: var(--text-main);
+      padding: 7px 12px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    select:focus,
+    input[type="date"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
+    }
+
+    button {
+      border-radius: 999px;
       border: none;
-      border-radius: 6px;
-      font-size: 16px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #052e16;
+      font-weight: 600;
+      font-size: 0.9rem;
       cursor: pointer;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow:
+        0 12px 40px rgba(34, 197, 94, 0.5),
+        0 0 0 1px rgba(21, 128, 61, 0.7);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
     }
-    button:hover { background: #005fd1; }
-    ul {
-      background: #eef4ff;
-      padding: 15px;
-      border-radius: 8px;
-      list-style: none;
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 18px 50px rgba(34, 197, 94, 0.7),
+        0 0 0 1px rgba(21, 128, 61, 0.9);
     }
-    li {
-      padding: 8px;
-      border-bottom: 1px solid #ddd;
+
+    button:active {
+      transform: translateY(0);
+      box-shadow:
+        0 10px 30px rgba(34, 197, 94, 0.5),
+        0 0 0 1px rgba(21, 128, 61, 0.8);
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 2px 6px;
+      font-size: 0.8rem;
+    }
+
+    .status-row span {
+      color: var(--text-muted);
+    }
+
+    .status-highlight {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .table-wrap {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      background: radial-gradient(circle at top left, #111827 0, #020617 55%);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    thead {
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    th,
+    td {
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+    }
+
+    th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    tbody tr:nth-child(odd) {
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-muted);
+    }
+
+    .score-chip {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.2);
+      color: #bbf7d0;
+      border: 1px solid rgba(22, 163, 74, 0.7);
+    }
+
+    .score-chip.low {
+      background: rgba(248, 113, 113, 0.12);
+      color: #fecaca;
+      border-color: rgba(239, 68, 68, 0.8);
+    }
+
+    .score-chip.medium {
+      background: rgba(250, 204, 21, 0.12);
+      color: #fef9c3;
+      border-color: rgba(234, 179, 8, 0.85);
+    }
+
+    @media (max-width: 800px) {
+      .app {
+        padding: 16px;
+        border-radius: 18px;
+      }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .controls {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 540px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+      .header {
+        gap: 8px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>NittanyEats Mock Menu</h1>
+  <div class="app">
+    <div class="header">
+      <div class="title-block">
+        <h1>
+          NittanyEats Mock Menus
+          <span class="pill">Static GitHub Demo</span>
+        </h1>
+        <p>
+          Pick a date, dining hall, and meal to view a <strong>mock PSU menu</strong>
+          with calories and CO₂e scores. Fully static – no backend needed.
+        </p>
+      </div>
+      <div class="stats-row">
+        <div class="badge">
+          <span class="dot"></span> Live demo via GitHub Pages
+        </div>
+        <div class="badge">5 halls · 2 dates · 3 meals</div>
+      </div>
+    </div>
 
-  <div class="container">
-    <label>Date:</label>
-    <input type="date" id="date" value="2025-12-07">
+    <div class="controls">
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="date" id="date" />
+      </div>
+      <div class="field">
+        <label for="hall">Dining Hall</label>
+        <select id="hall"></select>
+      </div>
+      <div class="field">
+        <label for="meal">Meal</label>
+        <select id="meal">
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+        </select>
+      </div>
+      <div class="field" style="justify-content:flex-end;">
+        <label>&nbsp;</label>
+        <button type="button" id="loadBtn">
+          Load Menu
+        </button>
+      </div>
+    </div>
 
-    <label>Dining Hall:</label>
-    <select id="hall">
-      <option value="11">Pollock</option>
-      <option value="14">South</option>
-    </select>
+    <div class="status-row">
+      <span id="statusText">Select filters and click “Load Menu”.</span>
+      <span id="countText" class="status-highlight"></span>
+    </div>
 
-    <label>Meal:</label>
-    <select id="meal">
-      <option>Breakfast</option>
-      <option>Lunch</option>
-      <option>Dinner</option>
-    </select>
-
-    <button onclick="loadMenu()">Load Menu</button>
-
-    <h2>Menu Items:</h2>
-    <ul id="menuList"></ul>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Item</th>
+            <th>Calories</th>
+            <th>CO₂e (kg)</th>
+            <th>Sustainability</th>
+          </tr>
+        </thead>
+        <tbody id="menuBody">
+          <!-- rows injected here -->
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <script>
-    function loadMenu() {
-      fetch("menus.json")
-      .then(res => res.json())
-      .then(data => {
-        const date = document.getElementById("date").value;
-        const hall = document.getElementById("hall").value;
-        const meal = document.getElementById("meal").value;
+    const dateInput = document.getElementById("date");
+    const hallSelect = document.getElementById("hall");
+    const mealSelect = document.getElementById("meal");
+    const statusText = document.getElementById("statusText");
+    const countText = document.getElementById("countText");
+    const menuBody = document.getElementById("menuBody");
+    const loadBtn = document.getElementById("loadBtn");
 
-        const menu = data.menus?.[date]?.[hall]?.[meal] || [];
+    // Load menus.json once on page load
+    let menuData = null;
 
-        const list = document.getElementById("menuList");
-        list.innerHTML = "";
+    async function init() {
+      try {
+        const res = await fetch("menus.json");
+        menuData = await res.json();
 
-        if (menu.length === 0) {
-          list.innerHTML = "<li>No menu available.</li>";
-          return;
+        // Populate halls
+        hallSelect.innerHTML = "";
+        Object.entries(menuData.halls).forEach(([id, name]) => {
+          const opt = document.createElement("option");
+          opt.value = id;
+          opt.textContent = name;
+          hallSelect.appendChild(opt);
+        });
+
+        // Default date = first available date in JSON
+        const dates = Object.keys(menuData.menus || {});
+        if (dates.length > 0) {
+          dateInput.value = dates[0];
         }
 
-        menu.forEach(item => {
-          const li = document.createElement("li");
-          li.textContent = `${item.name} — ${item.calories} cal`;
-          list.appendChild(li);
-        });
-      })
-      .catch(err => {
-        alert("Error loading menus.json");
-        console.error(err);
-      });
+        statusText.textContent =
+          "Static mock data loaded – choose filters and click “Load Menu”.";
+      } catch (e) {
+        console.error(e);
+        statusText.textContent = "Error loading menus.json";
+      }
     }
-  </script>
 
+    function loadMenu() {
+      if (!menuData) {
+        statusText.textContent = "Menu data not loaded yet.";
+        return;
+      }
+
+      const date = dateInput.value;
+      const hallId = hallSelect.value;
+      const meal = mealSelect.value;
+
+      const hallName = menuData.halls?.[hallId] || hallId;
+
+      const dayMenus = menuData.menus?.[date] || {};
+      const hallMenus = dayMenus?.[hallId] || {};
+      const items = hallMenus?.[meal] || [];
+
+      renderMenu(items);
+
+      if (items.length === 0) {
+        statusText.textContent = `No mock menu found for ${hallName} – ${meal} on ${date}.`;
+        countText.textContent = "";
+      } else {
+        statusText.textContent = `Showing mock menu for ${hallName} – ${meal} on ${date}.`;
+        countText.textContent = `${items.length} items`;
+      }
+    }
+
+    function renderMenu(items) {
+      menuBody.innerHTML = "";
+      if (!items || items.length === 0) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 5;
+        cell.textContent = "No items available for this selection.";
+        cell.style.textAlign = "center";
+        cell.style.color = "#9ca3af";
+        row.appendChild(cell);
+        menuBody.appendChild(row);
+        return;
+      }
+
+      for (const item of items) {
+        const tr = document.createElement("tr");
+
+        const tdCat = document.createElement("td");
+        const catTag = document.createElement("span");
+        catTag.className = "tag";
+        catTag.textContent = item.category || "General";
+        tdCat.appendChild(catTag);
+        tr.appendChild(tdCat);
+
+        const tdName = document.createElement("td");
+        tdName.textContent = item.name;
+        tr.appendChild(tdName);
+
+        const tdCal = document.createElement("td");
+        tdCal.textContent = item.calories != null ? item.calories + " kcal" : "—";
+        tr.appendChild(tdCal);
+
+        const tdCO2 = document.createElement("td");
+        tdCO2.textContent =
+          item.co2e_kg != null ? item.co2e_kg.toFixed(2) + " kg" : "—";
+        tr.appendChild(tdCO2);
+
+        const tdScore = document.createElement("td");
+        const chip = document.createElement("span");
+        chip.className = "score-chip";
+
+        const s = item.sustainability_score ?? 0;
+        if (s < 50) {
+          chip.classList.add("low");
+        } else if (s < 75) {
+          chip.classList.add("medium");
+        }
+
+        chip.textContent = s + "/100";
+        tdScore.appendChild(chip);
+        tr.appendChild(tdScore);
+
+        menuBody.appendChild(tr);
+      }
+    }
+
+    loadBtn.addEventListener("click", loadMenu);
+    init();
+  </script>
 </body>
 </html>
