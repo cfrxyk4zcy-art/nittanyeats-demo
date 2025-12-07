@@ -1,127 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NittanyEats – Mock Menu</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            max-width: 700px;
-            margin: auto;
-            background: #f5f7fa;
-        }
-
-        h1 {
-            text-align: center;
-            color: #003366;
-        }
-
-        select, input {
-            padding: 10px;
-            width: 100%;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-        }
-
-        th {
-            background: #003366;
-            color: white;
-        }
-
-        tr:hover {
-            background: #f0f8ff;
-        }
-    </style>
-
-    <script>
-        function loadMenu() {
-            fetch("menus.json")
-                .then(res => res.json())
-                .then(data => {
-                    const date = document.getElementById("date").value;
-                    const hall = document.getElementById("hall").value;
-                    const meal = document.getElementById("meal").value;
-
-                    const menu = data.menus?.[date]?.[hall]?.[meal] || [];
-
-                    renderMenu(menu);
-                })
-                .catch(err => console.error("Error:", err));
-        }
-
-        function renderMenu(items) {
-            const table = document.getElementById("menuTable");
-            table.innerHTML = "";
-
-            if (items.length === 0) {
-                table.innerHTML = "<tr><td colspan='3'>No items found.</td></tr>";
-                return;
-            }
-
-            items.forEach(item => {
-                table.innerHTML += `
-                    <tr>
-                        <td>${item.name}</td>
-                        <td>${item.calories || "-"} kcal</td>
-                        <td>${item.protein || "-"} g protein</td>
-                    </tr>
-                `;
-            });
-        }
-    </script>
+  <title>NittanyEats Mock Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+    h1 { text-align: center; }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    select, input {
+      padding: 10px;
+      margin: 8px 0;
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #0077ff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #005fd1; }
+    ul {
+      background: #eef4ff;
+      padding: 15px;
+      border-radius: 8px;
+      list-style: none;
+    }
+    li {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
 </head>
-
 <body>
-    <h1>NittanyEats Mock Menu</h1>
+  <h1>NittanyEats Mock Menu</h1>
 
-    <label>Select Date:</label>
+  <div class="container">
+    <label>Date:</label>
     <input type="date" id="date" value="2025-12-07">
 
-    <label>Select Dining Hall:</label>
+    <label>Dining Hall:</label>
     <select id="hall">
-        <option value="11">Pollock</option>
-        <option value="13">North</option>
-        <option value="14">South</option>
-        <option value="16">West</option>
-        <option value="17">East</option>
+      <option value="11">Pollock</option>
+      <option value="14">South</option>
     </select>
 
-    <label>Select Meal:</label>
+    <label>Meal:</label>
     <select id="meal">
-        <option>Breakfast</option>
-        <option>Lunch</option>
-        <option>Dinner</option>
+      <option>Breakfast</option>
+      <option>Lunch</option>
+      <option>Dinner</option>
     </select>
 
-    <button onclick="loadMenu()" style="padding:12px;width:100%;background:#003366;color:white;border:none;border-radius:8px;">
-        Load Menu
-    </button>
+    <button onclick="loadMenu()">Load Menu</button>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Calories</th>
-                <th>Protein</th>
-            </tr>
-        </thead>
-        <tbody id="menuTable"></tbody>
-    </table>
+    <h2>Menu Items:</h2>
+    <ul id="menuList"></ul>
+  </div>
+
+  <script>
+    function loadMenu() {
+      fetch("menus.json")
+      .then(res => res.json())
+      .then(data => {
+        const date = document.getElementById("date").value;
+        const hall = document.getElementById("hall").value;
+        const meal = document.getElementById("meal").value;
+
+        const menu = data.menus?.[date]?.[hall]?.[meal] || [];
+
+        const list = document.getElementById("menuList");
+        list.innerHTML = "";
+
+        if (menu.length === 0) {
+          list.innerHTML = "<li>No menu available.</li>";
+          return;
+        }
+
+        menu.forEach(item => {
+          const li = document.createElement("li");
+          li.textContent = `${item.name} — ${item.calories} cal`;
+          list.appendChild(li);
+        });
+      })
+      .catch(err => {
+        alert("Error loading menus.json");
+        console.error(err);
+      });
+    }
+  </script>
 
 </body>
 </html>
